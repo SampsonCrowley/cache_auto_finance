@@ -1,0 +1,3 @@
+<div class="phx-hero">
+  <h2>Message: <%= @message %></h2>
+</div>

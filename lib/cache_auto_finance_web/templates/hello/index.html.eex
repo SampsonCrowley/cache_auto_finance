@@ -1,0 +1,13 @@
+<section class="phx-hero">
+  <h1>
+    Rich's Auto is the Best!
+  </h1>
+</section>
+
+<section class="row">
+  <article class="column">
+    <h2>Test A Message</h2>
+    <form class="" action="index.html" method="post">
+    </form>
+  </article>
+</section>
