@@ -16,9 +16,10 @@ defmodule CacheAutoFinanceWeb.Router do
   scope "/", CacheAutoFinanceWeb do
     pipe_through :browser
 
-    get "/", RootController, :index
     get "/guide", GuideController, :index
     resources "/hello", HelloController, only: [ :index, :show ]
+    get "/*path", PageController, :index
+
   end
 
   # Other scopes may use custom stacks.

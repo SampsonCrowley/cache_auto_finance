@@ -1,0 +1,16 @@
+{
+  "name": "CacheAutoFinanceElixir",
+  "version": "0.0.1",
+  "license": "UNLICENSED",
+  "private": true,
+  "engines": {
+    "node": "^11.15.0",
+    "yarn": ">= 1.16.0"
+  },
+  "scripts": {
+    "build": "yarn --cwd assets deploy",
+    "install": "yarn --cwd assets install",
+    "start": "mix phx.server"
+  },
+  "dependencies": {}
+}

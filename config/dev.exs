@@ -16,10 +16,10 @@ config :cache_auto_finance, CacheAutoFinance.Repo,
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
 config :cache_auto_finance, CacheAutoFinanceWeb.Endpoint,
-  http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
+  force_ssl: [exclude: [], host: "lvh.me:4000"],
   watchers: [
     node: [
       "node_modules/webpack/bin/webpack.js",
@@ -28,7 +28,9 @@ config :cache_auto_finance, CacheAutoFinanceWeb.Endpoint,
       "--watch-stdin",
       cd: Path.expand("../assets", __DIR__)
     ]
-  ]
+  ],
+  http: [port: 3000],
+  https: [port: 4000, keyfile: "priv/server.key", certfile: "priv/server.pem"]
 
 # ## SSL Support
 #

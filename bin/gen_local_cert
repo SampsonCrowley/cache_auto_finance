@@ -1,0 +1,25 @@
+openssl req -new -newkey rsa:4096 -days 365 -nodes -x509  -keyout priv/server.key -out priv/server.pem -config <(
+cat <<-EOF
+[ req ]
+default_bits = 4096
+prompt = no
+req_extensions = req_ext
+distinguished_name = dn
+
+[ dn ]
+C = US
+ST = Utah
+L = Logan
+O = Sampsons Projects
+OU = Cache Auto Finance
+emailAddress = sampsonsprojects@gmail.com
+CN = lvh.me
+
+[ req_ext ]
+subjectAltName = @alt_names
+
+[ alt_names ]
+DNS.1 = localhost
+DNS.2 = 127.0.0.1
+EOF
+)

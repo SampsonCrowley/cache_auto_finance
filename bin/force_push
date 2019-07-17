@@ -1,0 +1,4 @@
+git branch -D force_push || :
+git subtree split --prefix elixir_www -b force_push
+git -c http.extraheader="GIGALIXIR-CLEAN: true" push -f gigalixir force_push:master || :
+git branch -D force_push

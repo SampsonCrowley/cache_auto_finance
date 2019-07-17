@@ -6,40 +6,78 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = (env, options) => ({
+  devtool: 'source-map',
+  devServer: {
+    compress: true,
+    https: true,
+    http2: true,
+  },
   optimization: {
+    runtimeChunk: {
+      name: 'shared-runtime'
+    },
+    splitChunks: {
+      chunks: 'all',
+    },
     minimizer: [
-      new UglifyJsPlugin({ cache: true, parallel: true, sourceMap: false }),
+      new UglifyJsPlugin({ cache: true, parallel: true, sourceMap: true }),
       new OptimizeCSSAssetsPlugin({})
     ]
   },
   entry: {
-      './js/app.js': ['./js/app.js'].concat(glob.sync('./vendor/**/*.js'))
+      app: ['./js/app.js'].concat(glob.sync('./vendor/**/*.js'))
   },
   output: {
-    filename: 'app.js',
-    path: path.resolve(__dirname, '../priv/static/js')
+    filename: '[name].js',
+    path: path.resolve(__dirname, '../priv/static/js'),
+    publicPath: '/js/'
+  },
+  resolve: {
+    extensions: [ '.js', '.jsx', '.styl', '.css' ],
+    alias: {
+      css: path.resolve(__dirname, 'css')
+    },
+    modules: [
+      path.resolve(__dirname, 'js'),
+      'node_modules'
+    ]
   },
   module: {
     rules: [
       {
         test: /\.js$/,
-        exclude: /node_modules/,
+        // exclude: /node_modules/,
         use: {
           loader: 'babel-loader'
-        }
+        },
+        // include: [
+        //   // These packages are distributed as es2015 modules, therefore they need
+        //   // to be transpiled to es5.
+        //   /node_modules(?:\/|\\)lit-element|lit-html/
+        // ]
       },
       {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader']
       },
       {
-        test: /\.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
-        loader: 'file-loader?name=fonts/[name].[ext]'
+        test: /\.styl(us)?$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'stylus-loader'
+        ]
       },
+      {
+        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        use: [
+          'file-loader'
+        ]
+      }
     ]
   },
   plugins: [
-    new MiniCssExtractPlugin({ filename: '../css/app.css' }),
+    new MiniCssExtractPlugin({ filename: '../css/[name].css' }),
     new CopyWebpackPlugin([{ from: 'static/', to: '../' }])
   ]
 });

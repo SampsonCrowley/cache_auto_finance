@@ -26,5 +26,6 @@ secret_key_base =
     """
 
 config :cache_auto_finance, CacheAutoFinanceWeb.Endpoint,
+  http: [:inet6, port: String.to_integer(System.get_env("PORT") || "4000")],
   secret_key_base: secret_key_base,
   server: true
