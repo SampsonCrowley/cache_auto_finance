@@ -167,6 +167,8 @@ class ClientHeader extends ScrollListener {
 
     this.totalDistance = this.totalDistance + Number(yDistance || 0)
 
+    if(this.shadow && (!moved || !this.totalDistance)) this.shadow = false
+
     if(y && yDistance) {
       if(up && (this._translated === 0)) return;
       if(!up && (this._translated === 100)) return;
@@ -185,7 +187,6 @@ class ClientHeader extends ScrollListener {
       this._translated = value
       this._shadowTimeout = setTimeout(() => {
         this._transitionDuration = 0
-        this.shadow = false
       }, 300)
     } else {
       this._translated = value
