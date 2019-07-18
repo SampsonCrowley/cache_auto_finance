@@ -1,0 +1,11 @@
+export APP_NAME=down-under-sports
+export DATABASE_URL="postgresql://postgres:postgres@localhost/cache_auto_finance_dev"
+export PORT=4000
+export SECRET_KEY_BASE="Y4nnkY/506Yxalu7OgOxs2T1CFDJe4Dt7+5rra4ZK2F3LC1qq/we6HFhkJYvsDqG"
+export MIX_ENV=prod
+rm -r _build
+mix deps.get
+yarn && yarn build
+mix phx.digest
+mix release
+_build/prod/rel/cache_auto_finance/bin/cache_auto_finance start

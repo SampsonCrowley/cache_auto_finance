@@ -22,17 +22,6 @@ export const LayoutStyles = css`
     --app-drawer-selected-color: #78909C;
   }
 
-  app-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    background-color: var(--app-header-background-color);
-    color: var(--app-header-text-color);
-    border-bottom: 1px solid #eee;
-  }
-
   .toolbar-top {
     background-color: var(--app-header-background-color);
   }

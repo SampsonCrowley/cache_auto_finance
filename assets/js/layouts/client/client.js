@@ -1,15 +1,4 @@
-/**
-@license
-Copyright (c) 2018 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
-*/
-
 import { LitElement, html, css } from 'lit-element'
-import { setPassiveTouchGestures } from '@polymer/polymer/lib/utils/settings.js'
 import MediaQuery from 'helpers/media-query'
 import ConnectionSpeed from 'helpers/connection-speed'
 import Router from 'helpers/router'
@@ -17,9 +6,7 @@ import Metadata from 'helpers/metadata'
 
 
 // These are the elements needed by this element.
-// import '@polymer/app-layout/app-drawer/app-drawer.js';
-import '@polymer/app-layout/app-header/app-header.js';
-import '@polymer/app-layout/app-scroll-effects/effects/waterfall.js';
+import './header';
 import './toolbar';
 import './drawer'
 import { menuIcon } from 'components/icons';
@@ -48,7 +35,7 @@ class ClientLayout extends LitElement {
     // Anything that's related to rendering should be done in here.
     return html`
       <!-- Header -->
-      <app-header reveals effects="waterfall">
+      <app-header>
         <app-toolbar class="toolbar-top">
           <button class="menu-btn" title="Menu" @click="${this._menuButtonClicked}">${menuIcon}</button>
           <div main-title>${this.appTitle}</div>
@@ -94,9 +81,6 @@ class ClientLayout extends LitElement {
   constructor() {
     super();
     this._drawerOpened = false;
-    // To force all event listeners for gestures to be passive.
-    // See https://www.polymer-project.org/3.0/docs/devguide/settings#setting-passive-touch-gestures
-    setPassiveTouchGestures(true);
   }
 
   connectedCallback() {
